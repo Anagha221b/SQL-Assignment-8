@@ -1,0 +1,174 @@
+Query->
+ -> creating table Country.
+
+	CREATE table Country(
+  		Id INT PRIMARY KEY,
+  		Country_name VARCHAR(50),
+  		Population INT,
+  		Area INT );
+
+->creating table Person.
+
+	CREATE table Persons(
+		 Id INT PRIMARY KEY, 
+		 Fname VARCHAR(100), 
+		 Lname VARCHAR(100), 
+		 Population INT,
+		Rating FLOAT, 
+		Country_Id INT, 
+		Country_name VARCHAR(100),
+		FOREIGN KEY(Country_Id) REFERENCES Country(Id));
+
+->Inserting data in country table.
+
+	INSERT INTO Country (Id, Country_name, Population, Area) VALUES
+	(1, 'USA', 331000, 9833520),
+	(2, 'India', 1409038, 3287263),
+	(3, 'China', 1444216107, 9596961),
+	(4, 'Russia', 1912025, 17098242),
+	(5, 'Indonesia', 297621, 1904569),
+	(6, 'Australia', 256041, 7692024),
+	(7, 'Brazil', 213437, 8515767),
+	(8, 'UK', 2299937, 881912),
+	(9, 'Chile', 2069587, 923769),
+	(10, 'Bangladesh', 1663498, 147570);
+
+->Inserting data in Persons Table.
+
+	INSERT INTO Persons (Id, Fname, Lname, Population, Rating, Country_Id, Country_name,DOB) VALUES
+	(1, 'John', 'Doe', 331000, 4.8, 1, 'USA','1971-03-18'),
+	(2, 'Aditya', 'Sharma', 1409038, 4.5, 2, 'India','1952-12-08'),
+	(3, 'Mike', 'Chenwan', 331000, 4.2, 1, 'USA','1999-01-09'),
+	(4, 'Emily', 'Davis', 1912025, 3.8, 4,'Russia','1992-08-16'),
+	(5, 'David', 'Brown', 52362, 4.0, 5, 'Canada','1987-03-13'),
+	(6, 'Sarah', 'Miller', 2299937, 4.5, 8, 'UK','1986-11-12'),
+	(7, 'Chris', 'Wilson', 1912025, 4.5, 4, 'Russia','1988-12-13'),
+	(8, 'Annie', 'Sebastian', 2299937, 4.3, 8, 'UK','1978-06-11'),
+	(9, 'James', 'Taylor', 256041, 2.4, 6, 'Australia','1997-03-01'),
+	(10, 'Ketan', 'Patel', 1409038, 4.6, 2, 'India','1975-03-01');
+
+Subqueries:
+
+Consider the Country table and Persons table that you created earlier and perform the following: 
+1. Find the number of persons in each country. 
+
+	SELECT Country_name, count(id) AS No_Of_Persons from Persons
+	GROUP by country_name;
+
+2. Find the number of persons in each country sorted from high to low. 
+
+	SELECT Country_name, count(id) AS No_Of_Persons from Persons
+	GROUP by country_name
+	ORDER by No_Of_Persons DESC;
+
+3. Find out an average rating for Persons in respective countries if the average is greater than 3.0.
+
+	SELECT country_name, AVG(rating) AS Average_Rating from Persons
+	GROUP by country_name
+	HAVING AVG(rating)> 3.0; 
+
+4. Find the countries with the same rating as the USA. (Use Subqueries).
+
+	SELECT country_name, rating FROM Persons
+	WHERE rating=(SELECT avg(rating) from Persons where country_name='USA');
+	 
+5. Select all countries whose population is greater than the average population of all nations. 
+
+	SELECT country_name, population from Country
+	WHERE population>(SELECT avg(population) from Country);
+
+
+Create a database named Product and create a table called Customer with the following fields in the Product database: Customer_Id - Make PRIMARY KEY First_name Last_name Email Phone_no Address City State Zip_code Country.
+
+->Creating a database.
+
+	CREATE DATABASE Product;
+	USE Product;
+
+-> Creating table Customer.
+	
+	CREATE TABLE Customer(
+  	Customer_Id INT PRIMARY KEY, 
+  	First_name VARCHAR(100),
+  	Last_name VARCHAR(100),
+  	Email VARCHAR(100),
+  	Phone_no VARCHAR(100),
+  	Address VARCHAR(100),
+  	City VARCHAR(100),
+  	State VARCHAR(100),
+  	Zip_code VARCHAR(100),
+  	Country VARCHAR(100));
+
+-> Inserting data in Customer table.
+	
+	INSERT INTO Customer (Customer_Id, First_name, Last_name, Email, Phone_no, Address, City, State, Zip_code, Country)
+	VALUES 
+	(1, 'John', 'Smith', 'john.smith@outlook.com', '555-1234', '123 Elm St', 'New York', 'New York', '10001', 'USA'),
+	(2, 'Jane', 'Doe', 'jane.doe@gmail.com', '555-5678', '456 Oak St', 'Los Angeles', 'New York', '90001', 'USA'),
+	(3, 'Pierre', 'Dubois', 'pierre.dubois@outlook.com', '555-8765', '789 Pine St', 'Paris', 'Île-de-France', '75000', 'France'),
+	(4, 'Marie', 'Curie', 'marie.curie@gmail.com', '555-4321', '321 Maple St', 'Lyon', 'Auvergne-Rhône-Alpes', '69000', 'France'),
+	(5, 'Liam', 'Connor', 'liam.oconnor@outlook.com', '555-6543', '654 Birch St', 'California', 'New York', '90011', 'USA'),
+	(6, 'Hrithik', 'Roshan', 'hrithik.roshan@yahoo.com', '555-3456', '987 Malaad St', 'Malaad', 'Maharashtra', '400021', 'India'),
+	(7, 'Hans', 'Muller', 'hans.mueller@yahoo.com', '555-7890', '159 Spruce St', 'Berlin', 'Berlin', '10115', 'Germany'),
+	(8, 'Anna', 'Schmidt', 'anna.schmidt@outlook.com', '555-0987', '753 Aspen St', 'Munich', 'Île-de-France', '75000', 'France'),
+	(9, 'Johnny', 'Lever', 'johnny.lever@gamil.com', '555-2134', '852 Dharavi', 'Santacruz', 'Maharashtra', '400001', 'India'),
+	(10, 'Maria', 'Lopez', 'maria.lopez@outlook.com', '555-6578', '456 Fir St', 'Barcelona', 'Île-de-France', '75000', 'France'),
+	(11, 'Akira', 'Tamble', 'akira.tamble@gmail.com', '555-8764', '963 Cypress St', 'Tokyo','Maharashtra', '400031', 'India'),
+	(12, 'Yuki', 'Tanaka', 'yuki.tanaka@microsoft.com', '555-4320', '357 Poplar St', 'California', 'New York', '10021', 'USA'),
+	(13, 'Luca', 'Rossi', 'luca.rossi@outlook.com', '555-1235', '258 Beech St', 'Rome','Île-de-France', '75000', 'France'),
+	(14, 'Sofia', 'Bianchi', 'sofia.bianchi@apple.com', '555-5679', '147 Redwood St', 'Milan', 'Moscow', '20100', 'Russia'),
+	(15, 'Olga', 'Ivanova', 'olga.ivanova@gmail.com', '555-8766', '369 Walnut St', 'Los-Angeles', 'New York', '10002', 'USA'),
+	(16, 'Dmitry', 'Petrov', 'dmitry.petrov@gmail.com', '555-4322', '741 Hemlock St', 'Saint Petersburg','Île-de-France', '75000', 'France'),
+	(17, 'Raj', 'Sharma', 'raj.sharma@google.com', '555-7891', '159 Lotus St', 'Delhi', 'Delhi', '110001', 'India'),
+	(18, 'Priya', 'Kumar', 'priya.kumar@google.com', '555-0988', '753 Jasmine St', 'Mumbai', 'Maharashtra', '400001', 'India'),
+	(19, 'Arjun', 'Patel', 'arjun.patel@outlook.com', '555-2135', '852 Tulip St', 'Anand Vihar', 'Delhi', '380001', 'India'),
+	(20, 'Anita', 'Reddy', 'anita.reddy@gamil.com', '555-6579', '456 Rose St', 'Bengaluru', 'Karnataka', '560001', 'India');
+
+
+Views:
+ 
+1. Create a view named customer_info for the Customer table that displays Customer’s Full name and email address. Then perform the SELECT operation for the customer_info view. 
+
+	CREATE VIEW customer_info
+	AS (SELECT concat(first_name,' ',last_name) AS Full_name, email FROM Customer);
+
+	SELECT * from customer_info;
+
+2. Create a view named US_Customers that displays customers located in the US. 
+	
+	CREATE VIEW US_Customers 
+	AS (SELECT * from Customer WHERE country='USA');
+
+	SELECT * from US_Customers;
+
+3. Create another view named Customer_details with columns full name(Combine first_name and last_name), email, phone_no, and state.
+	
+	CREATE VIEW Customer_details
+	AS (SELECT concat(first_name,' ',last_name) as Full_name, email, phone_no, state FROM Customer);	
+
+	SELECT * FROM Customer_details;
+	 
+4. Update phone numbers of customers who live in California for Customer_details view.
+	
+	UPDATE Customer_details
+	set phone_no='555-3245' 
+	where email in (SELECT email FROM Customer WHERE city='California');
+
+	SELECT * from Customer_details;
+	 
+5. Count the number of customers in each state and show only states with more than 5 customers. 
+	
+	SELECT state, count(customer_id) as No_Of_Customers from Customer
+	GROUP BY state
+	HAVING count(customer_id)>5;
+	
+6. Write a query that will return the number of customers in each state, based on the "state" column in the "customer_details" view. 
+		
+	SELECT state, count(*) as No_Of_Customers from Customer_details
+	GROUP BY state;
+
+7. Write a query that returns all the columns from the "customer_details" view, sorted by the "state" column in ascending order.
+
+	SELECT * from Customer_details
+	ORDER by state;
+
